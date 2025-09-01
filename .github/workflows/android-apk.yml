@@ -1,0 +1,27 @@
+name: Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Dependencies
+        run: flutter pub get
+        working-directory: proc_dealer
+      - name: Build APK (release)
+        run: flutter build apk --release --dart-define=FLUTTER_WEB_USE_SKIA=false
+        working-directory: proc_dealer
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ProcDealer-android-apk
+          path: proc_dealer/build/app/outputs/flutter-apk/app-release.apk

@@ -30,6 +30,10 @@ Build Windows release:
 Build Android APK (release):
 - flutter build apk --release
 
+Downloadable APK:
+- On tags (vX.Y.Z) or manual trigger, GitHub Actions publishes app-release.apk as an artifact under Actions > Android APK.
+- A local copy of a profile build is kept in `releases/ProcDealer-profile-1.0.0.apk` for quick sideloading.
+
 ## Gameplay Notes
 - Use the Start button to let crew autopilot buy/travel/sell intelligently and then end the day.
 - Tune autopilot in Settings: minMarginPct, reserveCushion, smartBanking.
