@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Flutter pub get
+        run: flutter pub get
+        working-directory: proc_dealer
+      - name: Analyze
+        run: flutter analyze
+        working-directory: proc_dealer
+      - name: Test
+        run: flutter test --reporter=compact
+        working-directory: proc_dealer
+      - name: Build Windows
+        run: flutter build windows --verbose
+        working-directory: proc_dealer
